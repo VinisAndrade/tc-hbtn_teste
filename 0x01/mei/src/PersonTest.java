@@ -1,6 +1,4 @@
-package mei;
-
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
@@ -10,43 +8,53 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PersonTest {
 
-    private Person person;
+    private static Person person;
 
-    @BeforeEach
-    public void setup() {
+    @BeforeAll
+    public static void setup() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2000, Calendar.JANUARY, 1);
+        calendar.set(2000, Calendar.JANUARY, 1); // Configurando a data de nascimento para 01/01/2000
         Date birthDate = calendar.getTime();
 
-        person = new Person("Paul", "McCartney", birthDate, true, true, true, 1200);
+        person = new Person("Paul", "McCartney", birthDate, true, true, true);
     }
 
     @Test
     public void show_full_name() {
-        assertEquals("Paul McCartney", person.fullName(), "O nome completo deveria ser 'Paul McCartney'.");
+        // Verifica se o método fullName retorna o nome completo correto
+        assertEquals("Paul McCartney", person.fullName());
     }
 
     @Test
     public void test_calculateYearlySalary() {
-        assertEquals(14400, person.calculateYearlySalary(), "O salário anual deveria ser 14400 para um salário mensal de 1200.");
+        // Configura salário mensal e verifica se o cálculo do salário anual está correto
+        person.setSalary(1200);
+        assertEquals(14400, person.calculateYearlySalary());
     }
 
     @Test
     public void person_is_MEI() {
-        // Configurar o objeto para atender os critérios do MEI
-        person.setAnotherCompanyOwner(false);
-        person.setPensioner(false);
-        person.setPublicServer(false);
-        person.setSalary(1000);
+        // Altera atributos para um cenário válido para ser MEI
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(1990, Calendar.JANUARY, 1);
+        Date birthDate = calendar.getTime();
+        
+        Person validPerson = new Person("John", "Lennon", birthDate, false, false, false);
+        validPerson.setSalary(1000);
 
-        assertTrue(person.isMEI(), "A pessoa deveria ser elegível como MEI.");
+        assertTrue(validPerson.isMEI());
     }
 
     @Test
     public void person_is_not_MEI() {
-        // Configurar o objeto para não atender os critérios do MEI
-        person.setAnotherCompanyOwner(true);
+        // Configura cenário inválido (ou salário acima do limite, ou pessoa com características impeditivas)
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(1990, Calendar.JANUARY, 1);
+        Date birthDate = calendar.getTime();
 
-        assertFalse(person.isMEI(), "A pessoa não deveria ser elegível como MEI.");
+        Person invalidPerson = new Person("George", "Harrison", birthDate, true, true, true);
+        invalidPerson.setSalary(15000);
+
+        assertFalse(invalidPerson.isMEI());
     }
 }
