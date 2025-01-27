@@ -1,9 +1,8 @@
-package mei;
-
 import java.util.Date;
 import java.util.Calendar;
 
 public class Person {
+
     private String name;
     private String surname;
     private Date birthDate;
@@ -22,63 +21,7 @@ public class Person {
         this.publicServer = publicServer;
     }
 
-    // Métodos get e set
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public boolean isAnotherCompanyOwner() {
-        return anotherCompanyOwner;
-    }
-
-    public void setAnotherCompanyOwner(boolean anotherCompanyOwner) {
-        this.anotherCompanyOwner = anotherCompanyOwner;
-    }
-
-    public boolean isPensioner() {
-        return pensioner;
-    }
-
-    public void setPensioner(boolean pensioner) {
-        this.pensioner = pensioner;
-    }
-
-    public boolean isPublicServer() {
-        return publicServer;
-    }
-
-    public void setPublicServer(boolean publicServer) {
-        this.publicServer = publicServer;
-    }
-
-    public float getSalary() {
-        return salary;
-    }
-
-    public void setSalary(float salary) {
-        this.salary = salary;
-    }
-
+    // Método para retornar o nome completo
     public String fullName() {
         return name + " " + surname;
     }
