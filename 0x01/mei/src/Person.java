@@ -80,25 +80,35 @@ public class Person {
         this.salary = salary;
     }
 
-    // Métodos adicionais
     public String fullName() {
         return name + " " + surname;
     }
 
+    // Getter e Setter para o salário
+    public float getSalary() {
+        return salary;
+    }
+
+    public void setSalary(float salary) {
+        this.salary = salary;
+    }
+
+    // Calcula o salário anual multiplicando o salário mensal por 12
     public float calculateYearlySalary() {
         return salary * 12;
     }
 
+    // Método para verificar se a pessoa é MEI
     public boolean isMEI() {
-        float yearlySalary = calculateYearlySalary();
-        int age = calculateAge(birthDate);
-        return yearlySalary < 130000 && age > 18 && !anotherCompanyOwner && !pensioner && !publicServer;
+        int age = calculateAge();
+        return (calculateYearlySalary() < 130000) && age > 18 && !anotherCompanyOwner && !pensioner && !publicServer;
     }
 
-    private int calculateAge(Date birthDate) {
-        Calendar today = Calendar.getInstance();
+    // Calcula a idade da pessoa com base na data de nascimento
+    private int calculateAge() {
         Calendar birth = Calendar.getInstance();
         birth.setTime(birthDate);
+        Calendar today = Calendar.getInstance();
 
         int age = today.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
         if (today.get(Calendar.DAY_OF_YEAR) < birth.get(Calendar.DAY_OF_YEAR)) {
