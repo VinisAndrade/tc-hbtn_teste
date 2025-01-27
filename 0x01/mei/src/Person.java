@@ -13,14 +13,13 @@ public class Person {
     private float salary;
 
     // Construtor
-    public Person(String name, String surname, Date birthDate, boolean anotherCompanyOwner, boolean pensioner, boolean publicServer, float salary) {
+    public Person(String name, String surname, Date birthDate, boolean anotherCompanyOwner, boolean pensioner, boolean publicServer) {
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
         this.anotherCompanyOwner = anotherCompanyOwner;
         this.pensioner = pensioner;
         this.publicServer = publicServer;
-        this.salary = salary;
     }
 
     // Métodos get e set
