@@ -45,4 +45,8 @@ public class PersonTest {
     @Test
     public void person_is_not_MEI() {
         // Configurar o objeto para não atender os critérios do MEI
-        person
+        person.setAnotherCompanyOwner(true);
+
+        assertFalse(person.isMEI(), "A pessoa não deveria ser elegível como MEI.");
+    }
+}
