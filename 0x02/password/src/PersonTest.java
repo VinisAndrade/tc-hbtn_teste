@@ -2,6 +2,7 @@ package src;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.ParameterizedTest;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
