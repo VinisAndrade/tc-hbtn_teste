@@ -8,7 +8,7 @@ public class Person {
         if (username == null || username.length() < 8) {
             return false;
         }
-        return username.matches("[a-zA-Z0-9]+"); // Apenas letras e números, sem caracteres especiais
+        return Pattern.matches("^[a-zA-Z0-9]+$", username); // Apenas letras e números, sem caracteres especiais
     }
 
     // Valida a senha
@@ -16,9 +16,9 @@ public class Person {
         if (password == null || password.length() < 8) {
             return false;
         }
-        boolean hasUpperCase = password.matches(".*[A-Z].*"); // Pelo menos uma letra maiúscula
-        boolean hasDigit = password.matches(".*\\d.*");      // Pelo menos um número
-        boolean hasSpecialChar = password.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*"); // Pelo menos um caractere especial
+         boolean hasUppercase = Pattern.compile("[A-Z]").matcher(password).find();
+        boolean hasNumber = Pattern.compile("[0-9]").matcher(password).find();
+        boolean hasSpecialChar = Pattern.compile("[^a-zA-Z0-9]").matcher(password).find();
 
         return hasUpperCase && hasDigit && hasSpecialChar;
     }
