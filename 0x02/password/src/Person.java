@@ -1,52 +1,24 @@
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+public class Person {
 
-public class PersonTest {
-
-    private static Person person;
-
-    @BeforeAll
-    public static void setup() {
-        person = new Person();
+    // Valida o nome de usuário
+    public boolean checkUser(String username) {
+        if (username == null || username.length() < 8) {
+            return false;
+        }
+        return Pattern.matches("^[a-zA-Z0-9]+$", username); // Apenas letras e números
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"PaulMcCartney2", "NeilArms2"})
-    public void check_user_valid(String username) {
-        assertTrue(person.checkUser(username));
-    }
+    // Valida a senha
+    public boolean checkPassword(String password) {
+        if (password == null || password.length() < 8) {
+            return false;
+        }
+        boolean hasUppercase = Pattern.compile("[A-Z]").matcher(password).find();
+        boolean hasNumber = Pattern.compile("[0-9]").matcher(password).find();
+        boolean hasSpecialChar = Pattern.compile("[^a-zA-Z0-9]").matcher(password).find();
 
-    @ParameterizedTest
-    @ValueSource(strings = {"Paul#McCartney", "Neil@Arms"})
-    public void check_user_not_valid(String username) {
-        assertFalse(person.checkUser(username));
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"123456789", "#$%1234"})
-    public void does_not_have_letters(String password) {
-        assertFalse(person.checkPassword(password));
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"Abcabcdefgh@", "#hbtn@%tc"})
-    public void does_not_have_numbers(String password) {
-        assertFalse(person.checkPassword(password));
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"Abc@123", "12$@hbt"})
-    public void does_not_have_eight_chars(String password) {
-        assertFalse(person.checkPassword(password));
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"abC123456$", "Hbtn@1234", "Betty@1#2", "Hbtn@123"})
-    public void check_password_valid(String password) {
-        assertTrue(person.checkPassword(password));
+        return hasUppercase && hasNumber && hasSpecialChar;
     }
 }
